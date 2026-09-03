@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="MedicalFlow.Domain/MedicalFlow.Domain.csproj" />
+  <Project Path="MedicalFlow.Infrastructure.Xpo/MedicalFlow.Infrastructure.Xpo.csproj" />
+  <Project Path="MedicalFlow.WinForms/MedicalFlow.WinForms.csproj" />
+</Solution>
