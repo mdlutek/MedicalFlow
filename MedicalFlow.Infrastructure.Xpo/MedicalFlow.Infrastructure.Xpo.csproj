@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DevExpress.Xpo" Version="26.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MedicalFlow.Domain\MedicalFlow.Domain.csproj" />
   </ItemGroup>
 

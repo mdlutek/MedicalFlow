@@ -47,7 +47,7 @@
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbonControl1.Size = new System.Drawing.Size(758, 144);
+            this.ribbonControl1.Size = new System.Drawing.Size(758, 158);
             // 
             // ribbonPage1
             // 
@@ -64,7 +64,7 @@
             // mvvmContext1
             // 
             this.mvvmContext1.ContainerControl = this;
-            this.mvvmContext1.ViewModelType = typeof(MainViewModel);
+            this.mvvmContext1.ViewModelType = typeof(MedicalFlow.WinForms.MainViewModel);
             // 
             // MainView
             // 
@@ -74,10 +74,12 @@
             this.Controls.Add(this.ribbonControl1);
             this.Name = "MainView";
             this.Ribbon = this.ribbonControl1;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainView";
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mvvmContext1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

@@ -34,10 +34,15 @@
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v26.1" />
     <Reference Include="DevExpress.Data.Desktop.v26.1" />
-    <Reference Include="DevExpress.Data.v26.1" />
+    <Reference Include="DevExpress.Data.v26.1, Version=26.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Data.26.1.4\lib\net462\DevExpress.Data.v26.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Mvvm.v26.1, Version=26.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v26.1.Core" />
     <Reference Include="DevExpress.Utils.v26.1" />
+    <Reference Include="DevExpress.Xpo.v26.1, Version=26.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Xpo.26.1.4\lib\net462\DevExpress.Xpo.v26.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.XtraBars.v26.1" />
     <Reference Include="DevExpress.Sparkline.v26.1.Core" />
     <Reference Include="DevExpress.XtraEditors.v26.1" />
@@ -54,6 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppSplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppSplashScreen.Designer.cs">
+      <DependentUpon>AppSplashScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +74,9 @@
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AppSplashScreen.resx">
+      <DependentUpon>AppSplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
@@ -76,6 +90,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -87,9 +102,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="$(ProgramFiles)\DevExpress 26.1\Components\Offline Packages\devexpress.data\26.1.4\analyzers\dotnet\DevExpress.Generator.dll" Visible="false" Condition="Exists('$(ProgramFiles)\DevExpress 26.1\Components\Offline Packages\devexpress.data\26.1.4\analyzers\dotnet\DevExpress.Generator.dll')" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MedicalFlow.Domain\MedicalFlow.Domain.csproj">
       <Project>{3a2e6f4d-7591-4ac0-ac68-043638ab7322}</Project>
       <Name>MedicalFlow.Domain</Name>
@@ -98,6 +110,9 @@
       <Project>{956efe1d-70f2-4c4f-ba03-497b0dd346cb}</Project>
       <Name>MedicalFlow.Infrastructure.Xpo</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\DevExpress.Data.26.1.4\analyzers\dotnet\DevExpress.Generator.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
