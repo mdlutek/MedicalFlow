@@ -33,7 +33,7 @@ namespace MedicalFlow.WinForms
             );
 
             // 2. Inicjalizacja połączenia XPO i generowanie schematu bazy danych
-            XpoConnectionHelper.InitXpo();
+            //XpoConnectionHelper.InitXpo();
 
             // Aktualizacja statusu
             SplashScreenManager.Default?.SendCommand(

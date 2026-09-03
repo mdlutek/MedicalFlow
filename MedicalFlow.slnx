@@ -1,5 +1,6 @@
 <Solution>
+  <Project Path="MedicalFlow.Api/MedicalFlow.Api.csproj" Id="41d3cae1-4f75-4cec-9e16-5c96454a6af2" />
   <Project Path="MedicalFlow.Domain/MedicalFlow.Domain.csproj" />
   <Project Path="MedicalFlow.Infrastructure.Xpo/MedicalFlow.Infrastructure.Xpo.csproj" />
-  <Project Path="MedicalFlow.WinForms/MedicalFlow.WinForms.csproj" />
+  <Project Path="MedicalFlow.WinForms/MedicalFlow.WinForms.csproj" Id="6b8f7b2f-884e-4a52-8a8e-d4a16d65862e" />
 </Solution>
