@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraPrinting.Native.WebClientUIControl;
 using MedicalFlow.Domain.Dtos;
+using MedicalFlow.Domain.Interfaces;
 using Newtonsoft.Json; 
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MedicalFlow.WinForms.Services
 {
-    public class PatientApiClient
+    public class PatientApiClient : IPatientApiClient
     {
         private readonly HttpClient _httpClient;
         // Adres pod jakim działa Twoje API (np. z Dockera lub IIS Express)

@@ -1,6 +1,7 @@
 ﻿using DevExpress.Utils.MVVM;
 using DevExpress.XtraEditors;
 using MedicalFlow.WinForms.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MedicalFlow.WinForms.Views
 {
@@ -15,6 +16,10 @@ namespace MedicalFlow.WinForms.Views
 
         private void InitializeMvvm()
         {
+            var viewModel = Program.ServiceProvider.GetRequiredService<DashboardViewModel>();
+
+            mvvmContext1.SetViewModel(typeof(DashboardViewModel), viewModel);
+
             var fluent = mvvmContext1.OfType<DashboardViewModel>();
 
             // Wiązanie statystyk liczbowych do etykiet na pulpicie

@@ -1,77 +1,41 @@
-﻿using System;
-using System.Windows.Forms;
-using DevExpress.Mvvm;
-using DevExpress.XtraBars;
-using MedicalFlow.WinForms.Views;
+﻿using DevExpress.Utils.MVVM;
+using DevExpress.Utils.MVVM.Services;
+using DevExpress.XtraBars.Ribbon;
+using MedicalFlow.WinForms.ViewModels;
+using System;
 
 namespace MedicalFlow.WinForms
 {
-    public partial class MainView : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class MainView : RibbonForm
     {
-        private Control _currentView;
-
         public MainView()
         {
             InitializeComponent();
 
-            // DOMYŚLNY WIDOK STARTOWY: Pulpit / Dashboard
-            ShowView(new DashboardView());
+            // Całkowite wyłączenie animacji - natychmiastowe przełączanie ekranów w 0 ms
+            mainNavigationFrame.AllowTransitionAnimation = DevExpress.Utils.DefaultBoolean.False;
+
+            if (!DesignMode)
+                InitializeMvvm();
         }
 
-        private void ShowView(Control newView)
+        private void InitializeMvvm()
         {
-            mainNavigationFrame.Controls.Clear();
-            _currentView = newView;
-            _currentView.Dock = DockStyle.Fill;
-            mainNavigationFrame.Controls.Add(_currentView);
+            // Rejestracja serwisu nawigacji
+            mvvmContext1.RegisterService(NavigationService.Create(mainNavigationFrame));
+
+            // Ustawienie sformatowanej dzisiejszej daty w stopce
+            bsiDate.Caption = DateTime.Now.ToString("dddd, dd MMMM yyyy");
+
+            var fluent = mvvmContext1.OfType<MainViewModel>();
+
+            // Start z Pulpitem
+            fluent.WithEvent(this, "Load").EventToCommand(x => x.ShowDashboard());
+
+            // Wiązanie przycisków wstążki z komendami
+            fluent.BindCommand(btnDashboard, x => x.ShowDashboard());
+            fluent.BindCommand(btnPatients, x => x.ShowPatients());
+            fluent.BindCommand(btnPatientEdit, x => x.ShowPatientEdit());
         }
-
-        #region --- NAWIGACJA ---
-
-        // 1. Przycisk "Pulpit / Dashboard"
-        private void btnDashboard_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (!(_currentView is DashboardView))
-            {
-                ShowView(new DashboardView());
-            }
-        }
-
-        // 2. Przycisk "Lista Pacjentów"
-        private void btnPatients_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (!(_currentView is PatientsView))
-            {
-                ShowView(new PatientsView());
-            }
-        }
-
-        // 3. Przycisk "Kalendarz Wizyt"
-        private void btnCalendar_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            // ShowView(new CalendarView());
-            DevExpress.XtraEditors.XtraMessageBox.Show("Moduł Kalendarza Wizyt - w trakcie budowy", "Nawigacja");
-        }
-
-        #endregion
-
-        #region --- AKCJE DLA MODUŁU PACJENTÓW ---
-
-        private void btnAddPatient_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (!(_currentView is PatientsView))
-            {
-                ShowView(new PatientsView());
-            }
-
-            Messenger.Default.Send("AddPatient", "AddPatient");
-        }
-
-        private void btnRefreshPatients_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            Messenger.Default.Send("RefreshPatients", "RefreshPatients");
-        }
-
-        #endregion
     }
 }

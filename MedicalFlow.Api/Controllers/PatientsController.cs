@@ -36,9 +36,9 @@ namespace MedicalFlow.Api.Controllers
         [HttpPost]
         public ActionResult<PatientDto> Create([FromBody] CreateOrUpdatePatientDto dto)
         {
-            using (var unitOfWord = XpoConnectionHelper.CreateUnitOfWork())
+            using (var unitOfWork = XpoConnectionHelper.CreateUnitOfWork())
             {
-                var patient = new Patient(unitOfWord)
+                var patient = new Patient(unitOfWork)
                 {
                     FirstName = dto.FirstName,
                     LastName = dto.LastName,
@@ -46,7 +46,7 @@ namespace MedicalFlow.Api.Controllers
                     PhoneNumber = dto.PhoneNumber
                 };
 
-                unitOfWord.CommitChanges(); // Zapis nowego rekordu w bazie
+                unitOfWork.CommitChanges(); // Zapis nowego rekordu w bazie
 
                 return Ok(new PatientDto
                 {

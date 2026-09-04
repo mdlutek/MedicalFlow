@@ -1,18 +1,11 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.Utils.MVVM;
+using DevExpress.XtraEditors;
+using Microsoft.Extensions.DependencyInjection;
 using MedicalFlow.WinForms.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MedicalFlow.WinForms.Views
 {
-    public partial class PatientEditView : DevExpress.XtraEditors.XtraUserControl
+    public partial class PatientEditView : XtraUserControl
     {
         public PatientEditView()
         {
@@ -23,13 +16,21 @@ namespace MedicalFlow.WinForms.Views
 
         private void InitializeMvvm()
         {
+            // 1. Pobieramy ViewModel z kontenera DI
+            var viewModel = Program.ServiceProvider.GetRequiredService<PatientEditViewModel>();
+            mvvmContext1.SetViewModel(typeof(PatientEditViewModel), viewModel);
+
             var fluent = mvvmContext1.OfType<PatientEditViewModel>();
 
-            // Dwukierunkowe wiązanie pól tekstowych z właściwościami encji Patient
+            // 2. Dwukierunkowe bindowanie pól tekstowych
             fluent.SetBinding(txtFirstName, txt => txt.EditValue, x => x.Patient.FirstName);
             fluent.SetBinding(txtLastName, txt => txt.EditValue, x => x.Patient.LastName);
             fluent.SetBinding(txtPesel, txt => txt.EditValue, x => x.Patient.Pesel);
             fluent.SetBinding(txtPhone, txt => txt.EditValue, x => x.Patient.PhoneNumber);
+
+            // 3. Wiązanie przycisków akcji z komendami ViewModelu
+            fluent.BindCommand(btnSave, x => x.Save());
+            fluent.BindCommand(btnCancel, x => x.Cancel());
         }
     }
 }

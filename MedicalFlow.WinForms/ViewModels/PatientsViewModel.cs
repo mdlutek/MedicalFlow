@@ -3,34 +3,45 @@ using DevExpress.Mvvm;
 using DevExpress.Mvvm.DataAnnotations;
 using DevExpress.Mvvm.POCO;
 using MedicalFlow.Domain.Dtos;
-using MedicalFlow.WinForms.Services;
+using MedicalFlow.Domain.Interfaces;
 
 namespace MedicalFlow.WinForms.ViewModels
 {
     // Atrybut POCOViewModel automatycznie generuje implementację INotifyPropertyChanged
     [POCOViewModel]
-    public class PatientsViewModel
+    // ISupportNavigation zapewnia odświeżenie danych po powrocie z karty edycji
+    public class PatientsViewModel : ISupportNavigation
     {
-        private readonly PatientApiClient _apiClient;
+        private readonly IPatientApiClient _apiClient;
 
         // Właściwości bindowane do DevExpress GridControl
         public virtual List<PatientDto> Patients { get; set; }
         public virtual PatientDto SelectedPatient { get; set; }
         public virtual bool IsLoading { get; set; }
 
-        // Serwis okien dialogowych DevExpress
-        protected IDialogService DialogService => this.GetService<IDialogService>();
+        // Wymagane przez interfejs ISupportNavigation
+        public object Parameter { get; set; }
 
-        public PatientsViewModel()
+        // Pobieramy serwis nawigacji
+        protected INavigationService NavigationService => this.GetService<INavigationService>();
+
+        public PatientsViewModel(IPatientApiClient apiClient)
         {
-            _apiClient = new PatientApiClient();
+            _apiClient = apiClient;
+        }
+
+        public static PatientsViewModel Create(IPatientApiClient apiClient)
+        {
+            return ViewModelSource.Create(() => new PatientsViewModel(apiClient));
+        }
+
+        // Automatyczne odświeżenie danych, gdy użytkownik wraca na ten ekran
+        public void OnNavigatedTo()
+        {
             LoadData();
         }
 
-        public static PatientsViewModel Create()
-        {
-            return ViewModelSource.Create(() => new PatientsViewModel());
-        }
+        public void OnNavigatedFrom() { }
 
         // Asynchroniczne ładowanie listy pacjentów z Web API
         public async void LoadData()
@@ -40,50 +51,18 @@ namespace MedicalFlow.WinForms.ViewModels
             IsLoading = false;
         }
 
-        // Dodawanie nowego pacjenta przez formularz dialogowy
-        public async void AddPatient()
+        // 1. Dodawanie: nawigujemy z parametrem 'null' (nowy pacjent)
+        public void AddPatient()
         {
-            var newDto = new CreateOrUpdatePatientDto();
-            var editViewModel = PatientEditViewModel.Create(newDto, isNew: true);
-
-            if (DialogService.ShowDialog(MessageButton.OKCancel, "Dodaj nowego pacjenta", "PatientEditView", editViewModel) == MessageResult.OK)
-            {
-                IsLoading = true;
-                bool success = await _apiClient.CreatePatientAsync(newDto);
-                if (success)
-                {
-                    LoadData(); // Odświeżenie widoku po udanym zapisie przez API
-                }
-                IsLoading = false;
-            }
+            NavigationService?.Navigate("PatientEditView", null, this);
         }
 
-        // Edycja zaznaczonego pacjenta
-        public async void EditPatient()
+        // 2. Edycja: nawigujemy przekazując ID zaznaczonego pacjenta
+        public void EditPatient()
         {
             if (SelectedPatient == null) return;
 
-            // Przygotowanie danych edytowanego pacjenta
-            var editDto = new CreateOrUpdatePatientDto
-            {
-                FirstName = SelectedPatient.FirstName,
-                LastName = SelectedPatient.LastName,
-                Pesel = SelectedPatient.Pesel,
-                PhoneNumber = SelectedPatient.PhoneNumber
-            };
-
-            var editViewModel = PatientEditViewModel.Create(editDto, isNew: false);
-
-            if (DialogService.ShowDialog(MessageButton.OKCancel, "Edycja danych pacjenta", "PatientEditView", editViewModel) == MessageResult.OK)
-            {
-                IsLoading = true;
-                bool success = await _apiClient.UpdatePatientAsync(SelectedPatient.Id, editDto);
-                if (success)
-                {
-                    LoadData(); // Przeładowanie siatki ze świeżymi danymi
-                }
-                IsLoading = false;
-            }
+            NavigationService?.Navigate("PatientEditView", SelectedPatient.Id, this);
         }
 
         // Warunek aktywności przycisku Edytuj (aktywny tylko gdy zaznaczono wiersz)
