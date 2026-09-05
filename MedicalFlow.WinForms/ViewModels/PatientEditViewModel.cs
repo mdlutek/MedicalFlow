@@ -2,8 +2,8 @@
 using DevExpress.Mvvm.DataAnnotations;
 using DevExpress.Mvvm.POCO;
 using DevExpress.XtraEditors;
-using MedicalFlow.Domain.Dtos;
-using MedicalFlow.Domain.Interfaces;
+using MedicalFlow.Contracts.Dtos;
+using MedicalFlow.WinForms.Services;
 using System;
 using System.Windows.Forms;
 

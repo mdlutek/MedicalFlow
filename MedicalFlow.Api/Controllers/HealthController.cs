@@ -1,4 +1,4 @@
-﻿using MedicalFlow.Domain.Dtos;
+﻿using MedicalFlow.Contracts.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalFlow.Api.Controllers

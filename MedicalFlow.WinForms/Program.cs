@@ -1,20 +1,12 @@
-﻿using DevExpress.Skins;
-using DevExpress.UserSkins;
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
-using MedicalFlow.Domain.Dtos;
-using MedicalFlow.Domain.Enums;
-using MedicalFlow.Domain.Interfaces;
-using MedicalFlow.Infrastructure.Xpo;
-using MedicalFlow.Infrastructure.Xpo.Entities;
 using MedicalFlow.WinForms.Services;
 using MedicalFlow.WinForms.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using App = System.Windows.Forms.Application;
 
 namespace MedicalFlow.WinForms
 {
@@ -29,8 +21,8 @@ namespace MedicalFlow.WinForms
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            App.EnableVisualStyles();
+            App.SetCompatibleTextRenderingDefault(false);
 
             // 1. Uruchomienie ekranu powitalnego (SplashScreen) na dedykowanym wątku
             SplashScreenManager.ShowForm(typeof(AppSplashScreen));
@@ -54,7 +46,7 @@ namespace MedicalFlow.WinForms
 
             // 3. Pobranie serwisu ApiHealthChecker z kontenera DI
             var healthChecker = ServiceProvider.GetRequiredService<ApiHealthChecker>();
-            bool isServerOnline = healthChecker.CheckConnection(timeoutSeconds: 5);
+            var isServerOnline = healthChecker.CheckConnection(timeoutSeconds: 5);
 
             if (!isServerOnline)
             {
@@ -88,7 +80,7 @@ namespace MedicalFlow.WinForms
             // Zamknięcie SplashScreen tuż przed pokazaniem okna
             SplashScreenManager.CloseForm(false);
 
-            Application.Run(mainView);
+            App.Run(mainView);
         }
 
         // Rejestracja wszystkich zależności w aplikacji

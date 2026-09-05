@@ -3,9 +3,11 @@ using DevExpress.Xpo;
 
 namespace MedicalFlow.Infrastructure.Xpo.Entities
 {
-    public class QueueTicket : XPObject
+    // [Persistent("QueueTicket")] gwarantuje, że tabela w MS SQL zachowa nazwę "QueueTicket"
+    [Persistent("QueueTicket")]
+    public class QueueTicketEntity : XPObject
     {
-        public QueueTicket(Session session) : base(session) { }
+        public QueueTicketEntity(Session session) : base(session) { }
 
         private string _ticketNumber; // np. "A-01", "B-12"
         [Indexed]

@@ -1,6 +1,6 @@
 ﻿using DevExpress.XtraPrinting.Native.WebClientUIControl;
-using MedicalFlow.Domain.Dtos;
-using MedicalFlow.Domain.Interfaces;
+using MedicalFlow.Contracts.Dtos;
+using MedicalFlow.WinForms.Services;
 using Newtonsoft.Json; 
 using System;
 using System.Collections.Generic;

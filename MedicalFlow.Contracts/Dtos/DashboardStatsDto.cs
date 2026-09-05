@@ -1,4 +1,4 @@
-﻿namespace MedicalFlow.Domain.Dtos
+﻿namespace MedicalFlow.Contracts.Dtos
 {
     // Model danych podsumowujących dla ekranu głównego (Pulpitu)
     public class DashboardStatsDto

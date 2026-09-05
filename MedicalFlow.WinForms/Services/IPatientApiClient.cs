@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MedicalFlow.Domain.Dtos;
+using MedicalFlow.Contracts.Dtos;
 
-namespace MedicalFlow.Domain.Interfaces
+namespace MedicalFlow.WinForms.Services
 {
     // Kontrakt określający operacje na danych pacjentów
     public interface IPatientApiClient

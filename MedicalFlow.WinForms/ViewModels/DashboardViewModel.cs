@@ -1,9 +1,7 @@
 ﻿using DevExpress.Mvvm.DataAnnotations;
 using DevExpress.Mvvm.POCO;
-using MedicalFlow.Domain.Dtos;
-using MedicalFlow.Domain.Interfaces;
+using MedicalFlow.Contracts.Dtos;
 using MedicalFlow.WinForms.Services;
-using System.Threading.Tasks;
 
 namespace MedicalFlow.WinForms.ViewModels
 {

@@ -1,4 +1,4 @@
-﻿namespace MedicalFlow.Domain.Dtos
+﻿namespace MedicalFlow.Contracts.Dtos
 {
     // Czysty model danych przesyłany przez sieć (JSON)
     public class PatientDto

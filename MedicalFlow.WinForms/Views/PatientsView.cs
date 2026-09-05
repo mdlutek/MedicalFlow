@@ -1,10 +1,8 @@
-﻿using DevExpress.Utils.MVVM;
-using DevExpress.Utils.MVVM.Services;
+﻿using DevExpress.Utils.MVVM.Services;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
-using MedicalFlow.Domain.Dtos;
-using MedicalFlow.Infrastructure.Xpo.Entities;
+using MedicalFlow.Contracts.Dtos;
 using MedicalFlow.WinForms.ViewModels;
 using Microsoft.Extensions.DependencyInjection; // Wymagany using dla GetRequiredService
 

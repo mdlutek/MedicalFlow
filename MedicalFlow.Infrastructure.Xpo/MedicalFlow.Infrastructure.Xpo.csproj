@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MedicalFlow.Application\MedicalFlow.Application.csproj" />
     <ProjectReference Include="..\MedicalFlow.Domain\MedicalFlow.Domain.csproj" />
   </ItemGroup>
 

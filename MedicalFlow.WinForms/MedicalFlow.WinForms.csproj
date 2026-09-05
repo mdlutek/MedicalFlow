@@ -135,6 +135,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ApiHealthChecker.cs" />
+    <Compile Include="Services\IPatientApiClient.cs" />
     <Compile Include="Services\PatientApiClient.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -195,6 +196,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MedicalFlow.Application\MedicalFlow.Application.csproj">
+      <Project>{6b15b365-6f71-48fe-b00e-2f0470d3ea52}</Project>
+      <Name>MedicalFlow.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MedicalFlow.Contracts\MedicalFlow.Contracts.csproj">
+      <Project>{9782fc5a-99b9-4b5b-9815-5d7a60c5df97}</Project>
+      <Name>MedicalFlow.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MedicalFlow.Domain\MedicalFlow.Domain.csproj">
       <Project>{3a2e6f4d-7591-4ac0-ac68-043638ab7322}</Project>
       <Name>MedicalFlow.Domain</Name>

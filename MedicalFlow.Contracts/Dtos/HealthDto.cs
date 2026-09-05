@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace MedicalFlow.Domain.Dtos
+namespace MedicalFlow.Contracts.Dtos
 {
     public class HealthDto
     {

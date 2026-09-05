@@ -4,21 +4,22 @@ using MedicalFlow.Domain.Enums;
 
 namespace MedicalFlow.Infrastructure.Xpo.Entities
 {
-    public class Visit : XPObject
+    [Persistent("Visit")]
+    public class VisitEntity : XPObject
     {
-        public Visit(Session session) : base(session) { }
+        public VisitEntity(Session session) : base(session) { }
 
-        private Patient _patient;
+        private PatientEntity _patient;
         [Association("Patient-Visits")]
-        public Patient Patient
+        public PatientEntity Patient
         {
             get => _patient;
             set => SetPropertyValue(nameof(Patient), ref _patient, value);
         }
 
-        private Doctor _doctor;
+        private DoctorEntity _doctor;
         [Association("Doctor-Visits")]
-        public Doctor Doctor
+        public DoctorEntity Doctor
         {
             get => _doctor;
             set => SetPropertyValue(nameof(Doctor), ref _doctor, value);
@@ -54,8 +55,8 @@ namespace MedicalFlow.Infrastructure.Xpo.Entities
         }
 
         // Relacja 1:1 - Przypisany bilet kolejkowy
-        private QueueTicket _queueTicket;
-        public QueueTicket QueueTicket
+        private QueueTicketEntity _queueTicket;
+        public QueueTicketEntity QueueTicket
         {
             get => _queueTicket;
             set => SetPropertyValue(nameof(QueueTicket), ref _queueTicket, value);

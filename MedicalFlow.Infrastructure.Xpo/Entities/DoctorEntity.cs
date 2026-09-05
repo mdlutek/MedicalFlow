@@ -2,9 +2,11 @@
 
 namespace MedicalFlow.Infrastructure.Xpo.Entities
 {
-    public class Doctor : XPObject
+    // Wskazujemy jawnie nazwę tabeli w bazie MS SQL, aby pozostała nienaruszona
+    [Persistent("Doctor")]
+    public class DoctorEntity : XPObject
     {
-        public Doctor(Session session) : base(session) { }
+        public DoctorEntity(Session session) : base(session) { }
 
         private string _firstName;
         public string FirstName
@@ -35,7 +37,7 @@ namespace MedicalFlow.Infrastructure.Xpo.Entities
         }
 
         [Association("Doctor-Visits")]
-        public XPCollection<Visit> Visits => GetCollection<Visit>(nameof(Visits));
+        public XPCollection<VisitEntity> Visits => GetCollection<VisitEntity>(nameof(Visits));
 
         public string DisplayName => $"lek. {FirstName} {LastName} ({Specialization})";
     }

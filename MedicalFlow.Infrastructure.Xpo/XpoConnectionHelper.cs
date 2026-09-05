@@ -26,10 +26,10 @@ namespace MedicalFlow.Infrastructure.Xpo
             // Rejestracja słownika metadanych z naszymi encjami
             var dict = new ReflectionDictionary();
             dict.GetDataStoreSchema(
-                typeof(Patient),
-                typeof(Doctor),
-                typeof(Visit),
-                typeof(QueueTicket)
+                typeof(PatientEntity),
+                typeof(DoctorEntity),
+                typeof(VisitEntity),
+                typeof(QueueTicketEntity)
             );
 
             // AutoCreateOption.DatabaseAndSchema automatycznie utworzy bazę i tabele, jeśli nie istnieją
@@ -60,11 +60,11 @@ namespace MedicalFlow.Infrastructure.Xpo
         {
             using(var unitOfWork = CreateUnitOfWork())
             {
-                var hasDoctor = new XPQuery<Doctor>(unitOfWork).Any();
+                var hasDoctor = new XPQuery<DoctorEntity>(unitOfWork).Any();
 
                 if (!hasDoctor)
                 {
-                    var doctor = new Doctor(unitOfWork)
+                    var doctor = new DoctorEntity(unitOfWork)
                     {
                         FirstName = "Jan",
                         LastName = "Kowalski",
@@ -72,7 +72,7 @@ namespace MedicalFlow.Infrastructure.Xpo
                         CabinetNumber = "104"
                     };
 
-                    var patient = new Patient(unitOfWork)
+                    var patient = new PatientEntity(unitOfWork)
                     {
                         FirstName = "Anna",
                         LastName = "Nowak",
@@ -80,7 +80,7 @@ namespace MedicalFlow.Infrastructure.Xpo
                         PhoneNumber = "500-600-700"
                     };
 
-                    var visit = new Visit(unitOfWork)
+                    var visit = new VisitEntity(unitOfWork)
                     {
                         Doctor = doctor,
                         Patient = patient,

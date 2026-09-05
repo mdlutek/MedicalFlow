@@ -3,10 +3,11 @@ using DevExpress.Xpo;
 
 namespace MedicalFlow.Infrastructure.Xpo.Entities
 {
-    // Encja reprezentująca pacjenta w przychodni
-    public class Patient : XPObject
+    // [Persistent("Patient")] sprawia, że nazwa tabeli w bazie MS SQL pozostaje bez zmian
+    [Persistent("Patient")]
+    public class PatientEntity : XPObject
     {
-        public Patient(Session session) : base(session) { }
+        public PatientEntity(Session session) : base(session) { }
 
         private string _firstName;
         public string FirstName
@@ -39,7 +40,7 @@ namespace MedicalFlow.Infrastructure.Xpo.Entities
 
         // Relacja 1:N - Pacjent może posiadać wiele wizyt
         [Association("Patient-Visits")]
-        public XPCollection<Visit> Visits => GetCollection<Visit>(nameof(Visits));
+        public XPCollection<VisitEntity> Visits => GetCollection<VisitEntity>(nameof(Visits));
 
         // Pomocnicza właściwość tylko do odczytu (wyświetlanie w siatce)
         public string FullName => $"{LastName} {FirstName}";

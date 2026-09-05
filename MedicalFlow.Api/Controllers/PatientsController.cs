@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DevExpress.Xpo;
-using MedicalFlow.Domain.Dtos;
+using MedicalFlow.Contracts.Dtos;
 using MedicalFlow.Infrastructure.Xpo;
 using MedicalFlow.Infrastructure.Xpo.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,7 @@ namespace MedicalFlow.Api.Controllers
             using (var unitOfWord = XpoConnectionHelper.CreateUnitOfWork())
             {
                 // Mapowanie encji XPO na lekkie obiekty DTO do wysyłki przez HTTP
-                var patients = new XPQuery<Patient>(unitOfWord)
+                var patients = new XPQuery<PatientEntity>(unitOfWord)
                     .Select(p => new PatientDto
                     {
                         Id = p.Oid,
@@ -38,7 +38,7 @@ namespace MedicalFlow.Api.Controllers
         {
             using (var unitOfWork = XpoConnectionHelper.CreateUnitOfWork())
             {
-                var patient = new Patient(unitOfWork)
+                var patient = new PatientEntity(unitOfWork)
                 {
                     FirstName = dto.FirstName,
                     LastName = dto.LastName,
@@ -64,7 +64,7 @@ namespace MedicalFlow.Api.Controllers
         {
             using (var unitOfWork = XpoConnectionHelper.CreateUnitOfWork())
             {
-                var patient = unitOfWork.GetObjectByKey<Patient>(id);
+                var patient = unitOfWork.GetObjectByKey<PatientEntity>(id);
                 if (patient == null) return NotFound();
 
                 patient.Delete();
@@ -78,7 +78,7 @@ namespace MedicalFlow.Api.Controllers
         {
             using (var unitOfWork = XpoConnectionHelper.CreateUnitOfWork())
             {
-                var patient = unitOfWork.GetObjectByKey<Patient>(id);
+                var patient = unitOfWork.GetObjectByKey<PatientEntity>(id);
                 if (patient == null) return NotFound();
 
                 // Przepisanie zaktualizowanych danych z DTO do encji bazodanowej
